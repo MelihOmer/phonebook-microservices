@@ -1,5 +1,6 @@
-﻿using ContactService.Application.Interfaces;
+﻿using ContactService.Application.Interfaces.Repositories;
 using ContactService.Domain.Common;
+using ContactService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

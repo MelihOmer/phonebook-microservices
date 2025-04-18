@@ -1,7 +1,7 @@
 ﻿using ContactService.Domain.Common;
 using System.Linq.Expressions;
 
-namespace ContactService.Application.Interfaces
+namespace ContactService.Application.Interfaces.Repositories
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

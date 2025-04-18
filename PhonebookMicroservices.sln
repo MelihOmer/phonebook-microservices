@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactService.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactService.API", "src\Services\ContactService\ContactService.API\ContactService.API.csproj", "{3214E3F1-8BB9-4091-BCD8-B08690CB048B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{914F62AF-4D39-431D-B79B-64832026B300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookMicroservices.Shared", "src\Services\Shared\PhonebookMicroservices.Shared\PhonebookMicroservices.Shared.csproj", "{3B477673-A37A-4825-A491-FF4AF8136013}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{3214E3F1-8BB9-4091-BCD8-B08690CB048B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3214E3F1-8BB9-4091-BCD8-B08690CB048B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3214E3F1-8BB9-4091-BCD8-B08690CB048B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B477673-A37A-4825-A491-FF4AF8136013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B477673-A37A-4825-A491-FF4AF8136013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B477673-A37A-4825-A491-FF4AF8136013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B477673-A37A-4825-A491-FF4AF8136013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +61,7 @@ Global
 		{45C85348-4A32-4C0E-8BB9-73A97C66DCC0} = {D75723FE-F73E-4EAB-BD44-6503D6FD95B9}
 		{066DF3B0-B048-4CF6-9895-DFD4ED98FD65} = {D75723FE-F73E-4EAB-BD44-6503D6FD95B9}
 		{3214E3F1-8BB9-4091-BCD8-B08690CB048B} = {D75723FE-F73E-4EAB-BD44-6503D6FD95B9}
+		{914F62AF-4D39-431D-B79B-64832026B300} = {33FAA6EF-05FF-44CE-B97D-574E054223EC}
+		{3B477673-A37A-4825-A491-FF4AF8136013} = {914F62AF-4D39-431D-B79B-64832026B300}
 	EndGlobalSection
 EndGlobal
