@@ -7,5 +7,6 @@ namespace ContactService.Domain.Entities
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Company { get; set; }
+        public IEnumerable<ContactInformation> ContactInformations { get; set; }
     }
 }
