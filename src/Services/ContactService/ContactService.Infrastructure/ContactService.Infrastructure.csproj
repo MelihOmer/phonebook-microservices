@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\PhonebookMicroservices.Shared\PhonebookMicroservices.Shared.csproj" />
     <ProjectReference Include="..\ContactService.Application\ContactService.Application.csproj" />
   </ItemGroup>
 

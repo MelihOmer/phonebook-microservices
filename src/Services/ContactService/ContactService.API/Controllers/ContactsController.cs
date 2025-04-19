@@ -15,17 +15,38 @@ namespace ContactService.API.Controllers
         {
             _contactService = contactService;
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateContact([FromBody]ContactCreateDto contactCreateDto)
+        [HttpGet]
+        public async Task<IActionResult> GetAllContacts()
         {
-            var result = await _contactService.CreateContact(contactCreateDto);
-            var response = ApiResponse<ContactResponseDto>.Ok(result,"Kayıt işlemi başarılı.");
+            var result = await _contactService.GetAllContactsAsync();
+            var response = ApiResponse<IEnumerable<ContactResponseDto>>.Ok(result, "İşlem Başarılı.");
             return Ok(response);
         }
-        [HttpDelete]
-        public async Task<IActionResult> RemoveContact([FromRoute]Guid contactId)
+        [HttpGet("{contactId:Guid}")]
+        public async Task<IActionResult> GetContactById(Guid contactId)
         {
-            await _contactService.RemoveContact(contactId);
+            var result = await _contactService.GetContactByIdAsync(contactId);
+            var response = ApiResponse<ContactResponseDto>.Ok(result, "İşlem Başarılı.");
+            return Ok(response);
+        }
+        [HttpGet("by-company")]
+        public async Task<IActionResult> GetContactByCompanyName([FromQuery]string companyName)
+        {
+            var result = await _contactService.GetContactsByCompanyNameAsync(companyName);
+            var response = ApiResponse<IEnumerable<ContactResponseDto>>.Ok(result, "İşlem Başarılı.");
+            return Ok(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateContact([FromBody] ContactCreateDto contactCreateDto)
+        {
+            var result = await _contactService.CreateContactAsync(contactCreateDto);
+            var response = ApiResponse<ContactResponseDto>.Ok(result, "Kayıt işlemi başarılı.");
+            return Ok(response);
+        }
+        [HttpDelete("{contactId:Guid}")]
+        public async Task<IActionResult> RemoveContact(Guid contactId)
+        {
+            await _contactService.RemoveContactAsync(contactId);
             var response = ApiResponse<string>.Ok($"{contactId} ID Silme işlemi başarılı.");
             return Ok(response);
         }

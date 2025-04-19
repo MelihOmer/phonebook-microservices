@@ -1,4 +1,5 @@
-﻿using ContactService.Domain.Entities;
+﻿using ContactService.Domain.Common;
+using ContactService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactService.Infrastructure.Persistence
@@ -11,6 +12,7 @@ namespace ContactService.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Contact>().HasQueryFilter(x => x.IsDeleted == false);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
