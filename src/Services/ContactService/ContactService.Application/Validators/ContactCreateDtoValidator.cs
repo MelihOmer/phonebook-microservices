@@ -9,7 +9,7 @@ namespace ContactService.Application.Validators
         {
             RuleFor(x => x.Firstname)
                 .NotEmpty().WithMessage("İsim alanı boş olamaz.")
-                .MaximumLength(5).WithMessage("İsim alanı 50 karakterden fazla olamaz.");
+                .MaximumLength(50).WithMessage("İsim alanı 50 karakterden fazla olamaz.");
             RuleFor(x => x.Lastname)
                 .NotEmpty().WithMessage("Soyisim alanı boş olamaz.")
                 .MaximumLength(50).WithMessage("Soyisim alanı 50 karakterden fazla olamaz.");

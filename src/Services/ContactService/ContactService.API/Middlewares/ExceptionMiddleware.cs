@@ -1,4 +1,5 @@
-﻿using PhonebookMicroservices.Shared.Exceptions;
+﻿using FluentValidation;
+using PhonebookMicroservices.Shared.Exceptions;
 using PhonebookMicroservices.Shared.ResponseTypes;
 
 namespace ContactService.API.Middlewares
@@ -25,19 +26,26 @@ namespace ContactService.API.Middlewares
                 await HandleExceptionAsync(context, ex);
             }
         }
-        private static async Task HandleExceptionAsync(HttpContext context,Exception ex)
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = ex switch
             {
                 NotFoundException => StatusCodes.Status404NotFound,
+                ValidationException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
             var response = ex switch
             {
-                NotFoundException notFoundException => ApiResponse<object>.Fail("Aranan Kaynak Bulunamadı.", new List<string>() { ex.Message })
+                NotFoundException notFoundException =>
+                    ApiResponse<object>.Fail("Aranan kaynak bulunamadı.", notFoundException.Message ),
+
+                _ =>
+                    ApiResponse<object>.Fail("Beklenmeyen bir hata oluştu.",ex.Message)
             };
+            
             await context.Response.WriteAsJsonAsync(response);
         }
+        
     }
 }
