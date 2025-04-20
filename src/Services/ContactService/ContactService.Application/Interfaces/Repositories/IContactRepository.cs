@@ -10,7 +10,7 @@ namespace ContactService.Application.Interfaces.Repositories
         Task<IEnumerable<Contact>> GetAllContactsAsync();
         Task<IEnumerable<Contact>> GetContactsByExpressionAsync(Expression<Func<Contact,bool>> expression);
         Task<Contact> CreateContactAsync(Contact contact);
-        //Task<Contact> UpdateContactAsync(Contact contact);
+        Task<Contact> UpdateContactAsync(Contact contact);
         Task RemoveContactAsync(Guid contactId);
     }
 }

@@ -50,6 +50,13 @@ namespace ContactService.API.Controllers
             var response = ApiResponse<ContactResponseDto>.Ok(result, "Kayıt işlemi başarılı.");
             return Ok(response);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateContact([FromBody] ContactUpdateDto contactUpdateDto)
+        {
+            var result = await _contactService.UpdateContactAsync(contactUpdateDto);
+            var response = ApiResponse<ContactResponseDto>.Ok(result);
+            return Ok(response);
+        }
         [HttpDelete("{contactId:Guid}")]
         public async Task<IActionResult> RemoveContact(Guid contactId)
         {
