@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ContactService.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250419125554_init-project")]
-    partial class initproject
+    [Migration("20250420011908_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("company");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -42,7 +43,8 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("first_name");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -50,11 +52,12 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("last_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("contacts", (string)null);
                 });
 
             modelBuilder.Entity("ContactService.Domain.Entities.ContactInformation", b =>
@@ -64,44 +67,36 @@ namespace ContactService.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ContactId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ContanctId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("contact_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InfoContent")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<int>("Type")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContactId");
 
-                    b.HasIndex("ContanctId");
-
-                    b.ToTable("ContactInformation");
+                    b.ToTable("contact_informations", (string)null);
                 });
 
             modelBuilder.Entity("ContactService.Domain.Entities.ContactInformation", b =>
                 {
                     b.HasOne("ContactService.Domain.Entities.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ContactService.Domain.Entities.Contact", null)
                         .WithMany("ContactInformations")
-                        .HasForeignKey("ContanctId")
+                        .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

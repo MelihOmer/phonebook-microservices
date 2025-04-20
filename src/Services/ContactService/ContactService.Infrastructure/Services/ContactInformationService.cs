@@ -41,7 +41,7 @@ namespace ContactService.Infrastructure.Services
 
         public async Task<IEnumerable<ContactInfoResponseDto>> GetContactInformationsByContactIdAsync(Guid contactId)
         {
-            var contactInfos = await _repository.GetContactInformationByExpressionAsync(x => x.ContanctId == contactId);
+            var contactInfos = await _repository.GetContactInformationByExpressionAsync(x => x.ContactId == contactId);
             if (!contactInfos.Any())
                 throw new NotFoundException($"({contactId}) ID Kişiye ait iletşim bilgisi bulunamadı.");
             var mappingResponse = _mapper.Map<IEnumerable<ContactInfoResponseDto>>(contactInfos);

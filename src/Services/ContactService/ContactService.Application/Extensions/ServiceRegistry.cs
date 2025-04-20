@@ -14,7 +14,8 @@ namespace ContactService.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetAssembly(typeof(ContactMappingProfile)));
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(ContactInformationMappingProfile)));
+
             services.AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(ContactCreateDtoValidator).Assembly));
             services.Configure<ApiBehaviorOptions>(opt =>
             {

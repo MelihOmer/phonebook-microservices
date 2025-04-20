@@ -1,4 +1,4 @@
-﻿using ContactService.Domain.DTOs.Contact;
+﻿using ContactService.Application.DTOs.Contact;
 using FluentValidation;
 
 namespace ContactService.Application.Validators

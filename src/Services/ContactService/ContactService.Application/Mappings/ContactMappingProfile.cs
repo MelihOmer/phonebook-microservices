@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContactService.Domain.DTOs.Contact;
+using ContactService.Application.DTOs.Contact;
 using ContactService.Domain.Entities;
 
 namespace ContactService.Application.Mappings

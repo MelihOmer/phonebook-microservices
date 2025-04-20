@@ -8,8 +8,8 @@ namespace ContactService.Application.Mappings
     {
         public ContactInformationMappingProfile()
         {
-            CreateMap<ContactInformation,ContactInfoCreateDto>();
-            CreateMap<ContactInformation,ContactInfoResponseDto>();
+            CreateMap<ContactInformation,ContactInfoCreateDto>().ReverseMap();
+            CreateMap<ContactInformation,ContactInfoResponseDto>().ReverseMap();
         }
     }
 }

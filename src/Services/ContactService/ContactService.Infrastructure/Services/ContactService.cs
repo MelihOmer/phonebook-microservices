@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using ContactService.Application.Interfaces.Repositories;
 using ContactService.Application.Interfaces.Services;
-using ContactService.Domain.DTOs.Contact;
+using ContactService.Application.DTOs.Contact;
 using ContactService.Domain.Entities;
 using ContactService.Infrastructure.Persistence;
 using PhonebookMicroservices.Shared.Exceptions;
+using Microsoft.EntityFrameworkCore;
+using ContactService.Application.DTOs.ContactInformation;
 
 namespace ContactService.Infrastructure.Services
 {
@@ -52,6 +54,23 @@ namespace ContactService.Infrastructure.Services
                 throw new NotFoundException($"({companyName}) Firma İsimli, Kişi Bulunamadı.");
             var mappingResult = _mapper.Map<IEnumerable<ContactResponseDto>>(result);
             return mappingResult;
+        }
+
+        public async Task<ContactWithInformationsResponseDto> GetContactWithInformationsAsync(Guid contactId)
+        {
+            
+            var result = await _repository.GetContactQuery()
+                .Where(x => x.Id == contactId)
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Select(x => new ContactWithInformationsResponseDto()
+                {
+                    Contact = new ContactResponseDto(x.Id, x.Firstname, x.Lastname, x.Company),
+                    ContactInformations = x.ContactInformations
+                    .Select(ci => new ContactInfoListDto(ci.Id, ci.Type, ci.InfoContent))
+                    .ToList()
+                }).FirstOrDefaultAsync();
+            return result;
         }
 
         public async Task RemoveContactAsync(Guid contactId)

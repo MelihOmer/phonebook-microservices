@@ -8,13 +8,16 @@ namespace ContactService.Infrastructure.Persistence
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
         {
+            builder.HasQueryFilter(x => x.IsDeleted == false);
 
-            builder.Property(x => x.Firstname).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Lastname).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Company).IsRequired().HasMaxLength(150);
+            builder.ToTable("contacts");
+
+            builder.Property(x => x.Firstname).HasColumnName("first_name").IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Lastname).HasColumnName("last_name").IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Company).HasColumnName("company").IsRequired().HasMaxLength(150);
             builder.HasMany(x => x.ContactInformations)
                 .WithOne()
-                .HasForeignKey(x => x.ContanctId)
+                .HasForeignKey(x => x.ContactId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

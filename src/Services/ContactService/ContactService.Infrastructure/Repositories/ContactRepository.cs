@@ -1,5 +1,4 @@
 ﻿using ContactService.Application.Interfaces.Repositories;
-using ContactService.Domain.DTOs.Contact;
 using ContactService.Domain.Entities;
 using ContactService.Infrastructure.Persistence;
 using ContactService.Infrastructure.Repository;
@@ -9,8 +8,10 @@ namespace ContactService.Infrastructure.Repositories
 {
     public class ContactRepository : EfGenericRepository<Contact>, IContactRepository
     {
+        private readonly AppDbContext _appDbContext;
         public ContactRepository(AppDbContext appDbContext) : base(appDbContext)
         {
+            _appDbContext = appDbContext;
         }
 
         public async Task<Contact> CreateContact(Contact contact)
@@ -31,12 +32,17 @@ namespace ContactService.Infrastructure.Repositories
             return result;
         }
 
+        public IQueryable<Contact> GetContactQuery()
+        {
+            var result = GetQueryable();
+            return result;
+        }
+
         public async Task<IEnumerable<Contact>> GetContactsByExpressionAsync(Expression<Func<Contact, bool>> expression)
         {
             var result = await GetAllAsyncByFilter(expression);
             return result;
         }
-
         public async Task RemoveContact(Guid contactId)
         {
             await DeleteAsync(contactId);
