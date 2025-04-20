@@ -1,5 +1,5 @@
 ﻿using ContactService.Application.Interfaces.Services;
-using ContactService.Domain.DTOs.Contact;
+using ContactService.Application.DTOs.Contact;
 using Microsoft.AspNetCore.Mvc;
 using PhonebookMicroservices.Shared.ResponseTypes;
 
@@ -20,6 +20,13 @@ namespace ContactService.API.Controllers
         {
             var result = await _contactService.GetAllContactsAsync();
             var response = ApiResponse<IEnumerable<ContactResponseDto>>.Ok(result, "İşlem Başarılı.");
+            return Ok(response);
+        }
+        [HttpGet("{id}/with-informations")]
+        public async Task<IActionResult> GetContactWithInformations(Guid id)
+        {
+            var result = await _contactService.GetContactWithInformationsAsync(id);
+            var response = ApiResponse<ContactWithInformationsResponseDto>.Ok(result,"İşlem Başarılı.");
             return Ok(response);
         }
         [HttpGet("{contactId:Guid}")]
@@ -47,7 +54,7 @@ namespace ContactService.API.Controllers
         public async Task<IActionResult> RemoveContact(Guid contactId)
         {
             await _contactService.RemoveContactAsync(contactId);
-            var response = ApiResponse<string>.Ok($"{contactId} ID Silme işlemi başarılı.");
+            var response = ApiResponse<object>.Ok(null,$"{contactId} ID Silme işlemi başarılı.");
             return Ok(response);
         }
     }

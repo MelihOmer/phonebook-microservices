@@ -11,8 +11,7 @@ namespace ContactService.Infrastructure.Persistence
         public DbSet<ContactInformation> ContactInformation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Contact>().HasQueryFilter(x => x.IsDeleted == false);
+        {            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }

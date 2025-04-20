@@ -1,4 +1,4 @@
-﻿namespace ContactService.Domain.DTOs.Contact
+﻿namespace ContactService.Application.DTOs.Contact
 {
     public record ContactResponseDto
     {

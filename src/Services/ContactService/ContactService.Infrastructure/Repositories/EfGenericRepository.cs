@@ -47,6 +47,12 @@ namespace ContactService.Infrastructure.Repository
             return result;
         }
 
+        public IQueryable<T> GetQueryable()
+        {
+            var result = _table.AsQueryable();
+            return result;
+        }
+
         public async Task<T> UpdateAsync(T entity)
         {
             _appDbContext.Entry(entity).State = EntityState.Modified;
