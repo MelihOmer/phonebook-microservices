@@ -9,6 +9,7 @@ namespace ContactService.Application.Mappings
         public ContactMappingProfile()
         {
             CreateMap<Contact,ContactCreateDto>().ReverseMap();
+            CreateMap<Contact,ContactUpdateDto>().ReverseMap();
             CreateMap<Contact,ContactResponseDto>().ReverseMap();
         }
     }

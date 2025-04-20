@@ -58,7 +58,7 @@ namespace ContactService.Infrastructure.Services
 
         public async Task<ContactWithInformationsResponseDto> GetContactWithInformationsAsync(Guid contactId)
         {
-            
+
             var result = await _repository.GetContactQuery()
                 .Where(x => x.Id == contactId)
                 .AsNoTracking()
@@ -80,6 +80,19 @@ namespace ContactService.Infrastructure.Services
                 throw new NotFoundException($"({contactId}) ID Silinecek Kişi Bulunamadı.");
             await _repository.RemoveContactAsync(contactId);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ContactResponseDto> UpdateContactAsync(ContactUpdateDto contactUpdateDto)
+        {
+            var contact = await _repository.GetContactByIdAsync(contactUpdateDto.Id);
+            if (contact is null)
+                throw new NotFoundException($"({contactUpdateDto.Id}) ID Güncellenecek Kişi Bulunamadı.");
+            var entity = _mapper.Map<Contact>(contactUpdateDto);
+            var updatedContact = await _repository.UpdateContactAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            var result = _mapper.Map<ContactResponseDto>(updatedContact);
+            return result;
+
         }
     }
 }

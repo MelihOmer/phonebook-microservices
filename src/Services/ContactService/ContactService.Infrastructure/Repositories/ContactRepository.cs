@@ -47,5 +47,15 @@ namespace ContactService.Infrastructure.Repositories
         {
             await DeleteAsync(contactId);
         }
+
+        public async Task<Contact> UpdateContactAsync(Contact contact)
+        {
+            var oldEntity = await GetByIdAsync(contact.Id);
+            oldEntity.Firstname = contact.Firstname;
+            oldEntity.Lastname = contact.Lastname;
+            oldEntity.Company = contact.Company;
+            var updatedEntity = await UpdateAsync(oldEntity);
+            return updatedEntity;
+        }
     }
 }
