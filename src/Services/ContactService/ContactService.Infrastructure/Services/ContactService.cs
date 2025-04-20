@@ -25,7 +25,7 @@ namespace ContactService.Infrastructure.Services
         public async Task<ContactResponseDto> CreateContactAsync(ContactCreateDto contactCreateDto)
         {
             var contactCreate = _mapper.Map<Contact>(contactCreateDto);
-            var contact = await _repository.CreateContact(contactCreate);
+            var contact = await _repository.CreateContactAsync(contactCreate);
             await _dbContext.SaveChangesAsync();
             var response = _mapper.Map<ContactResponseDto>(contact);
             return response;
@@ -40,7 +40,7 @@ namespace ContactService.Infrastructure.Services
 
         public async Task<ContactResponseDto> GetContactByIdAsync(Guid id)
         {
-            var result = await _repository.GetContactById(id);
+            var result = await _repository.GetContactByIdAsync(id);
             if (result is null)
                 throw new NotFoundException($"({id}) ID Kişi Bulunamadı.");
             var mappingResult = _mapper.Map<ContactResponseDto>(result);
@@ -51,7 +51,7 @@ namespace ContactService.Infrastructure.Services
         {
             var result = await _repository.GetContactsByExpressionAsync(x => x.Company.Equals(companyName));
             if (!result.Any())
-                throw new NotFoundException($"({companyName}) Firma İsimli, Kişi Bulunamadı.");
+                throw new NotFoundException($"({companyName}) Firma İsimli, Kişi Kayıdı Bulunamadı.");
             var mappingResult = _mapper.Map<IEnumerable<ContactResponseDto>>(result);
             return mappingResult;
         }
@@ -75,10 +75,10 @@ namespace ContactService.Infrastructure.Services
 
         public async Task RemoveContactAsync(Guid contactId)
         {
-            var contact = await _repository.GetContactById(contactId);
+            var contact = await _repository.GetContactByIdAsync(contactId);
             if (contact is null)
                 throw new NotFoundException($"({contactId}) ID Silinecek Kişi Bulunamadı.");
-            await _repository.RemoveContact(contactId);
+            await _repository.RemoveContactAsync(contactId);
             await _dbContext.SaveChangesAsync();
         }
     }

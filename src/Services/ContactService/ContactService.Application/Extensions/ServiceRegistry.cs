@@ -1,5 +1,5 @@
 ﻿using ContactService.Application.Mappings;
-using ContactService.Application.Validators;
+using ContactService.Application.Validators.ContactValidators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;

@@ -29,6 +29,13 @@ namespace ContactService.API.Controllers
             var response = ApiResponse<IEnumerable<ContactInfoResponseDto>>.Ok(result);
             return Ok(response);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateContactInformationAsync([FromBody]ContactInfoUpdateDto contactInfoUpdateDto)
+        {
+            var result = await _contactInformationService.UpdateContactInformationAsync(contactInfoUpdateDto);
+            var response = ApiResponse<ContactInfoResponseDto>.Ok(result,"İşlem Başarılı.");
+            return Ok(response);
+        }
         [HttpGet("contact-id")]
         public async Task<IActionResult> GetAllContactInformationsByContactId([FromQuery] Guid contactId)
         {
@@ -38,7 +45,7 @@ namespace ContactService.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContactInformation(ContactInfoCreateDto contactInfoCreateDto)
+        public async Task<IActionResult> CreateContactInformation([FromBody]ContactInfoCreateDto contactInfoCreateDto)
         {
             var result = await _contactInformationService.CreateContactInformationAsync(contactInfoCreateDto);
             var response = ApiResponse<ContactInfoResponseDto>.Ok(result, "İşlem Başarılı.");

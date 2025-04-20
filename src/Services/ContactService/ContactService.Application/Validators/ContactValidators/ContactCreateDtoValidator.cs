@@ -1,7 +1,7 @@
 ﻿using ContactService.Application.DTOs.Contact;
 using FluentValidation;
 
-namespace ContactService.Application.Validators
+namespace ContactService.Application.Validators.ContactValidators
 {
     public class ContactCreateDtoValidator : AbstractValidator<ContactCreateDto>
     {
