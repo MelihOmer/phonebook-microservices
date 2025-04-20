@@ -26,7 +26,7 @@ namespace ContactService.Infrastructure.Repositories
 
         public async Task<IEnumerable<ContactInformation>> GetContactInformationByExpressionAsync(Expression<Func<ContactInformation, bool>> expression)
         {
-            var  result = await GetAllAsyncByFilter(expression);
+            var result = await GetAllAsyncByFilter(expression);
             return result;
         }
 
@@ -39,6 +39,15 @@ namespace ContactService.Infrastructure.Repositories
         public async Task RemoveContactInformationAsync(Guid id)
         {
             await DeleteAsync(id);
+        }
+
+        public async Task<ContactInformation> UpdateContactInformationAsync(ContactInformation contactInformation)
+        {
+            var entity = await GetByIdAsync(contactInformation.Id);
+            entity.InfoContent = contactInformation.InfoContent;
+            entity.Type = contactInformation.Type;
+            var updatedEntity = await UpdateAsync(entity);
+            return updatedEntity;
         }
     }
 }

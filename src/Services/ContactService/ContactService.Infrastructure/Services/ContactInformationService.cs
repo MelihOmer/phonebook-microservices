@@ -63,5 +63,19 @@ namespace ContactService.Infrastructure.Services
             await _repository.RemoveContactInformationAsync(id);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<ContactInfoResponseDto> UpdateContactInformationAsync(ContactInfoUpdateDto updateDto)
+        {
+            var contactInfo = await _repository.GetContactInformationByIdAsync(updateDto.Id);
+            if (contactInfo == null)
+                throw new NotFoundException($"({updateDto.Id}) ID İletişim bilgisi bulunamadı.");
+
+            var updatingEntity = _mapper.Map<ContactInformation>(updateDto);
+            var updatedEntity = await _repository.UpdateContactInformationAsync(updatingEntity);
+            await _dbContext.SaveChangesAsync();
+            var result = _mapper.Map<ContactInfoResponseDto>(updatedEntity);
+            return result;
+
+        }
     }
 }

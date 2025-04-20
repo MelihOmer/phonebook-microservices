@@ -14,7 +14,7 @@ namespace ContactService.Infrastructure.Repositories
             _appDbContext = appDbContext;
         }
 
-        public async Task<Contact> CreateContact(Contact contact)
+        public async Task<Contact> CreateContactAsync(Contact contact)
         {
             var addedContact = await CreateAsync(contact);
             return addedContact;
@@ -26,7 +26,7 @@ namespace ContactService.Infrastructure.Repositories
             return result;
         }
 
-        public async Task<Contact> GetContactById(Guid id)
+        public async Task<Contact> GetContactByIdAsync(Guid id)
         {
             var result = await GetByIdAsync(id);
             return result;
@@ -43,7 +43,7 @@ namespace ContactService.Infrastructure.Repositories
             var result = await GetAllAsyncByFilter(expression);
             return result;
         }
-        public async Task RemoveContact(Guid contactId)
+        public async Task RemoveContactAsync(Guid contactId)
         {
             await DeleteAsync(contactId);
         }
