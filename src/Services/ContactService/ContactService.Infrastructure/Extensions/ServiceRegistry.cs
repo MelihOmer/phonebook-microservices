@@ -21,6 +21,7 @@ namespace ContactService.Infrastructure.Extensions
             services.AddScoped<IContactRepository,ContactRepository>();
 
             services.AddScoped<IContactService, ContactService.Infrastructure.Services.ContactService>();
+            services.AddScoped<IContactInformationRepository, ContactInformationRepository>();
         }
     }
 }

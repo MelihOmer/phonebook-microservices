@@ -49,7 +49,7 @@ namespace ContactService.Infrastructure.Services
         {
             var result = await _repository.GetContactsByExpressionAsync(x => x.Company.Equals(companyName));
             if (!result.Any())
-                throw new NotFoundException($"({companyName}) Firma İsimli Kişi Bulunamadı.");
+                throw new NotFoundException($"({companyName}) Firma İsimli, Kişi Bulunamadı.");
             var mappingResult = _mapper.Map<IEnumerable<ContactResponseDto>>(result);
             return mappingResult;
         }
@@ -58,7 +58,7 @@ namespace ContactService.Infrastructure.Services
         {
             var contact = await _repository.GetContactById(contactId);
             if (contact is null)
-                throw new NotFoundException($"({contactId}) ID Kişi Bulunamadı.");
+                throw new NotFoundException($"({contactId}) ID Silinecek Kişi Bulunamadı.");
             await _repository.RemoveContact(contactId);
             await _dbContext.SaveChangesAsync();
         }

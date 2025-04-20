@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using PhonebookMicroservices.Shared.Exceptions;
 using PhonebookMicroservices.Shared.ResponseTypes;
+using System.Diagnostics;
 
 namespace ContactService.API.Middlewares
 {
@@ -28,6 +29,7 @@ namespace ContactService.API.Middlewares
         }
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            string traceId = Activity.Current?.Id ?? context.TraceIdentifier;
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = ex switch
             {
@@ -38,10 +40,10 @@ namespace ContactService.API.Middlewares
             var response = ex switch
             {
                 NotFoundException notFoundException =>
-                    ApiResponse<object>.Fail("Aranan kaynak bulunamadı.", notFoundException.Message ),
+                    ApiResponse<object>.Fail("Kaynak bulunamadı.",traceId,notFoundException.Message ),
 
                 _ =>
-                    ApiResponse<object>.Fail("Beklenmeyen bir hata oluştu.",ex.Message)
+                    ApiResponse<object>.Fail("Beklenmeyen bir hata oluştu.",traceId,ex.Message)
             };
             
             await context.Response.WriteAsJsonAsync(response);
