@@ -30,6 +30,13 @@ namespace ContactService.Infrastructure.Services
             return mappingResponse;
         }
 
+        public async Task<IEnumerable<ContactInfoResponseDto>> GetAllContactInformationsAsync()
+        {
+            var contactInfos = await _repository.GetAllContactInformationAsync();
+            var contactInfosDto = _mapper.Map<IEnumerable<ContactInfoResponseDto>>(contactInfos);
+            return contactInfosDto;
+        }
+
         public async Task<ContactInfoResponseDto> GetContactInformationByIdAsync(Guid id)
         {
             var contactInfo = await _repository.GetContactInformationByIdAsync(id);

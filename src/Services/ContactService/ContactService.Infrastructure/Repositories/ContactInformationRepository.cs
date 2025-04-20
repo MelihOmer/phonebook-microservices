@@ -18,6 +18,12 @@ namespace ContactService.Infrastructure.Repositories
             return result;
         }
 
+        public async Task<IEnumerable<ContactInformation>> GetAllContactInformationAsync()
+        {
+            var result = await GetAllAsync();
+            return result;
+        }
+
         public async Task<IEnumerable<ContactInformation>> GetContactInformationByExpressionAsync(Expression<Func<ContactInformation, bool>> expression)
         {
             var  result = await GetAllAsyncByFilter(expression);
