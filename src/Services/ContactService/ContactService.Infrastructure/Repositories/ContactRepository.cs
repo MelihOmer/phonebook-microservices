@@ -1,7 +1,6 @@
 ﻿using ContactService.Application.Interfaces.Repositories;
 using ContactService.Domain.Entities;
 using ContactService.Infrastructure.Persistence;
-using ContactService.Infrastructure.Repository;
 using System.Linq.Expressions;
 
 namespace ContactService.Infrastructure.Repositories

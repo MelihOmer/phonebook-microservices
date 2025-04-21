@@ -4,7 +4,7 @@ using ContactService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ContactService.Infrastructure.Repository
+namespace ContactService.Infrastructure.Repositories
 {
     public class EfGenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {

@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{914F62
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookMicroservices.Shared", "src\Services\Shared\PhonebookMicroservices.Shared\PhonebookMicroservices.Shared.csproj", "{3B477673-A37A-4825-A491-FF4AF8136013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactService.Tests", "ContactService.Tests\ContactService.Tests.csproj", "{820DFF49-F6A1-45CB-9845-429FA88CF089}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactService.Tests", "src\Services\ContactService\ContactService.Tests\ContactService.Tests.csproj", "{820DFF49-F6A1-45CB-9845-429FA88CF089}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
