@@ -6,6 +6,7 @@ using ReportService.Application.Interfaces.Repositories;
 using ReportService.Infrastructure.Repositories.ReportRepositories;
 using ReportService.Application.Mappings;
 using ReportService.Application.Interfaces.Services;
+using ReportService.Infrastructure.Repositories.ReportDetailsRepositories;
 
 namespace ReportService.Infrastructure.Extensions
 {
@@ -20,6 +21,7 @@ namespace ReportService.Infrastructure.Extensions
             services.AddAutoMapper(typeof(ReportMapperProfile).Assembly);
 
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IReportDetailsRepository, ReportDetailRepositories>();
             services.AddScoped<IReportService, ReportService.Infrastructure.Services.ReportService>();
         }
     }
