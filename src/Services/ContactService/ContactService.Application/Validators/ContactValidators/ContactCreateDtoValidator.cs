@@ -15,7 +15,7 @@ namespace ContactService.Application.Validators.ContactValidators
                 .MaximumLength(50).WithMessage("Soyisim alanı 50 karakterden fazla olamaz.");
             RuleFor(x => x.Company)
                 .NotEmpty().WithMessage("Şirket adı alanı boş olamaz.")
-                .MaximumLength(50).WithMessage("Şirket adı alanı 150 karakterden fazla olamaz.");
+                .MaximumLength(150).WithMessage("Şirket adı alanı 150 karakterden fazla olamaz.");
         }
     }
 }
