@@ -7,6 +7,7 @@ using ReportService.Infrastructure.Repositories.ReportRepositories;
 using ReportService.Application.Mappings;
 using ReportService.Application.Interfaces.Services;
 using ReportService.Infrastructure.Repositories.ReportDetailsRepositories;
+using ReportService.Infrastructure.Services;
 
 namespace ReportService.Infrastructure.Extensions
 {
@@ -22,7 +23,10 @@ namespace ReportService.Infrastructure.Extensions
 
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IReportDetailsRepository, ReportDetailRepositories>();
+
+
             services.AddScoped<IReportService, ReportService.Infrastructure.Services.ReportService>();
+            services.AddScoped<IReportDetailService, ReportDetailService>();
         }
     }
 }

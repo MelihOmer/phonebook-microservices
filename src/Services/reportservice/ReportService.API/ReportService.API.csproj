@@ -23,4 +23,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ReportService.Application\ReportService.Application.csproj" />
+    <ProjectReference Include="..\ReportService.Infrastructure\ReportService.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
