@@ -1,10 +1,11 @@
-﻿using ContactService.Domain.Common;
+﻿using ContactService.Application.Interfaces;
+using ContactService.Domain.Common;
 using ContactService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactService.Infrastructure.Persistence
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext,IDbContextAdapter
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Contact> Contacts { get; set; }

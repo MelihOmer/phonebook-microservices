@@ -7,6 +7,7 @@ using ContactService.Infrastructure.Persistence;
 using PhonebookMicroservices.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using ContactService.Application.DTOs.ContactInformation;
+using ContactService.Application.Interfaces;
 
 namespace ContactService.Infrastructure.Services
 {
@@ -22,14 +23,7 @@ namespace ContactService.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<ContactResponseDto> CreateContactAsync(ContactCreateDto contactCreateDto)
-        {
-            var contactCreate = _mapper.Map<Contact>(contactCreateDto);
-            var contact = await _repository.CreateContactAsync(contactCreate);
-            await _dbContext.SaveChangesAsync();
-            var response = _mapper.Map<ContactResponseDto>(contact);
-            return response;
-        }
+        
 
         public async Task<IEnumerable<ContactResponseDto>> GetAllContactsAsync()
         {
@@ -49,7 +43,7 @@ namespace ContactService.Infrastructure.Services
 
         public async Task<IEnumerable<ContactResponseDto>> GetContactsByCompanyNameAsync(string companyName)
         {
-            var result = await _repository.GetContactsByExpressionAsync(x => x.Company.Equals(companyName));
+            var result = await _repository.GetContactsByExpressionAsync(x => x.Company.Equals(companyName,StringComparison.OrdinalIgnoreCase));
             if (!result.Any())
                 throw new NotFoundException($"({companyName}) Firma İsimli, Kişi Kayıdı Bulunamadı.");
             var mappingResult = _mapper.Map<IEnumerable<ContactResponseDto>>(result);
@@ -71,6 +65,14 @@ namespace ContactService.Infrastructure.Services
                     .ToList()
                 }).FirstOrDefaultAsync();
             return result;
+        }
+        public async Task<ContactResponseDto> CreateContactAsync(ContactCreateDto contactCreateDto)
+        {
+            var contactCreate = _mapper.Map<Contact>(contactCreateDto);
+            var contact = await _repository.CreateContactAsync(contactCreate);
+            await _dbContext.SaveChangesAsync();
+            var response = _mapper.Map<ContactResponseDto>(contact);
+            return response;
         }
 
         public async Task RemoveContactAsync(Guid contactId)
