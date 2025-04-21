@@ -3,12 +3,12 @@ using ReportService.Application.Interfaces.Repositories;
 using ReportService.Domain.Entities;
 using ReportService.Infrastructure.Persistence;
 
-namespace ReportService.Infrastructure.Repositories
+namespace ReportService.Infrastructure.Repositories.ReportRepositories
 {
-    public class ReportRepositories : IReportRepository
+    public class ReportRepository : IReportRepository
     {
         private readonly ReportDbContext _dbContext;
-        public ReportRepositories(ReportDbContext dbContext)
+        public ReportRepository(ReportDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -40,9 +40,15 @@ namespace ReportService.Infrastructure.Repositories
             return result;
         }
 
+        public IQueryable<Report> GetReportQueryable()
+        {
+            var result = Table.AsQueryable();
+            return result;
+        }
+
         public Report UpdateReport(Report report)
         {
-            var entityEntry =  Table.Update(report);
+            var entityEntry = Table.Update(report);
             return entityEntry.Entity;
         }
     }
