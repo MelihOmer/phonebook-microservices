@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReportService.Domain.Entities;
+using ReportService.Infrastructure.Persistence.Configurations;
 
 namespace ReportService.Infrastructure.Persistence
 {
@@ -11,5 +12,10 @@ namespace ReportService.Infrastructure.Persistence
         }
         public DbSet<Report> Reports{ get; set; }
         public DbSet<ReportDetail> ReportDetails { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReportConfigurations).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
