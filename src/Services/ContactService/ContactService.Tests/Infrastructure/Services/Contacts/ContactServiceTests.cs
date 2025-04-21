@@ -164,7 +164,6 @@ namespace ContactService.Tests.Application.Features.Contacts
             _mockMapper.Setup(m => m.Map<Contact>(createDto)).Returns(createdEntity);
             _mockRepository.Setup(r => r.CreateContactAsync(createdEntity))
                 .ReturnsAsync(createdEntity);
-            await _dbContext.SaveChangesAsync();
             _mockMapper.Setup(m => m.Map<ContactResponseDto>(createdEntity))
                 .Returns(expectedDto);
 
@@ -205,7 +204,6 @@ namespace ContactService.Tests.Application.Features.Contacts
             _mockRepository.Setup(r => r.GetContactByIdAsync(contactId)).ReturnsAsync(existingContact);
             _mockMapper.Setup(m => m.Map<Contact>(updateDto)).Returns(mappedEntity);
             _mockRepository.Setup(r => r.UpdateContactAsync(mappedEntity)).ReturnsAsync(mappedEntity);
-            await _dbContext.SaveChangesAsync();
             _mockMapper.Setup(m => m.Map<ContactResponseDto>(mappedEntity)).Returns(updatedResponse);
 
 
@@ -232,7 +230,6 @@ namespace ContactService.Tests.Application.Features.Contacts
                 .ReturnsAsync((Contact)null!);
             //Act
             var act = async () => await _contactService.UpdateContactAsync(updateDto);
-            await _dbContext.SaveChangesAsync();
             //Assert
             await act.Should().ThrowAsync<NotFoundException>();
             _mockRepository.Verify(r => r.GetContactByIdAsync(contactId), Times.Once);
