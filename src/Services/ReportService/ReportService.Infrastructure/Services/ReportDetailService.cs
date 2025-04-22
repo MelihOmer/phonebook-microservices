@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ReportService.Application.DTOs.ReportDetailDTOs;
 using ReportService.Application.Interfaces.Repositories;
 using ReportService.Application.Interfaces.Services;
@@ -36,6 +37,14 @@ namespace ReportService.Infrastructure.Services
         {
             var result = await _repository.GetReportDetailByIdAsync(id);
             return _mapper.Map<ReportDetailResponseDto>(result);
+        }
+
+        public async Task<IEnumerable<ReportDetailResponseDto>> GetReportDetailsByReportId(Guid reportId)
+        {
+            var result =  _repository.GetReportDetailQueryable()
+                .Where(x => x.ReportId.Equals(reportId))
+                .AsEnumerable();
+            return _mapper.Map<IEnumerable<ReportDetailResponseDto>>(result);
         }
     }
 }

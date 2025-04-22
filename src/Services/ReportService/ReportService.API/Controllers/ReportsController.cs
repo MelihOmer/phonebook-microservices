@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhonebookMicroservices.Shared.ResponseTypes;
 using ReportService.API.Contracts.Events;
 using ReportService.Application.DTOs.ReportDTOs;
+using ReportService.Application.DTOs.ResponseDTOs;
 using ReportService.Application.Interfaces.Services;
 
 namespace ReportService.API.Controllers
@@ -32,6 +33,20 @@ namespace ReportService.API.Controllers
         {
             var result = await _reportService.GetReportByIdAsync(reportId);
             var response = ApiResponse<ReportResponseDto>.Ok(result);
+            return Ok(response);
+        }
+        [HttpGet("{reportId}/with-details")]
+        public async Task<IActionResult> GetReportWithDetailListByReportIdAsync([FromRoute]Guid reportId)
+        {
+            var result = await _reportService.GetReportWithDetailListByReportIdAsync(reportId);
+            var response = ApiResponse<ReportWithDetailListResponseDto>.Ok(result);
+            return Ok(response);
+        }
+        [HttpGet("with-details")]
+        public async Task<IActionResult> GetReportWithDetailListAsync()
+        {
+            var result = await _reportService.GetReportWithDetailListByAsync();
+            var response = ApiResponse<IEnumerable<ReportWithDetailListResponseDto>>.Ok(result);
             return Ok(response);
         }
         [HttpPost]

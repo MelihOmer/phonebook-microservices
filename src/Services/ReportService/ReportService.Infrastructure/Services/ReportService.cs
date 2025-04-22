@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ReportService.Application.DTOs.ReportDetailDTOs;
 using ReportService.Application.DTOs.ReportDTOs;
+using ReportService.Application.DTOs.ResponseDTOs;
 using ReportService.Application.Interfaces.Http;
 using ReportService.Application.Interfaces.Repositories;
 using ReportService.Application.Interfaces.Services;
@@ -82,6 +85,36 @@ namespace ReportService.Infrastructure.Services
                 _reportRepository.UpdateReport(report);
                 await _reportRepository.CommitAsync();
             }
+        }
+
+        public async Task<ReportWithDetailListResponseDto> GetReportWithDetailListByReportIdAsync(Guid reportId)
+        {
+            var result = await _reportRepository.GetReportQueryable()
+                .Where(x => x.Id == reportId)
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Select(x => new ReportWithDetailListResponseDto
+                {
+                    Report = new ReportResponseDto() { Id = x.Id, ReportStatus = x.ReportStatus, RequestedAt = x.RequestedAt },
+                    ReportDetails = x.ReportDetails
+                    .Select(rd => new ReportDetailListResponseDto() { Id = rd.Id, Location = rd.Location, PersonCount = rd.PersonCount, PhoneCount = rd.PhoneCount })
+                }).FirstOrDefaultAsync();
+            return result;
+
+        }
+
+        public async Task<IEnumerable<ReportWithDetailListResponseDto>> GetReportWithDetailListByAsync()
+        {
+            var result =  _reportRepository.GetReportQueryable()
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Select(x => new ReportWithDetailListResponseDto
+                {
+                    Report = new ReportResponseDto() { Id = x.Id, ReportStatus = x.ReportStatus, RequestedAt = x.RequestedAt },
+                    ReportDetails = x.ReportDetails
+                    .Select(rd => new ReportDetailListResponseDto() { Id = rd.Id, Location = rd.Location, PersonCount = rd.PersonCount, PhoneCount = rd.PhoneCount })
+                }).AsEnumerable();
+            return result;
         }
     }
 }
