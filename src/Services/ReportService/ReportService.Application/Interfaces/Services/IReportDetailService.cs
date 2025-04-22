@@ -7,6 +7,7 @@ namespace ReportService.Application.Interfaces.Services
     {
         Task<IEnumerable<ReportDetailResponseDto>> GetAllReportDetailsAsync();
         Task<ReportDetailResponseDto> GetReportDetailByIdAsync(Guid id);
+        Task<IEnumerable<ReportDetailResponseDto>> GetReportDetailsByReportId(Guid reportId);
         Task<ReportDetailResponseDto> AddReportDetailAsync(ReportDetailCreateDto reportDetailCreateDto);
     }
 }
