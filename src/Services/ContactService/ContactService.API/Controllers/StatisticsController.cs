@@ -15,7 +15,7 @@ namespace ContactService.API.Controllers
         {
             _statisticService = statisticService;
         }
-        [HttpGet("location-statistic")]
+        [HttpGet("location-statistic")] 
         public async Task<IActionResult> GetLocationStatisticAsync()
         {
             var result = await _statisticService.GetLocationStatisticAsync();
