@@ -2,6 +2,7 @@
 using ContactService.Application.DTOs.Contact;
 using Microsoft.AspNetCore.Mvc;
 using PhonebookMicroservices.Shared.ResponseTypes;
+using ContactService.Application.DTOs.Statistic;
 
 namespace ContactService.API.Controllers
 {
@@ -10,10 +11,12 @@ namespace ContactService.API.Controllers
     public class ContactsController : ControllerBase
     {
         private readonly IContactService _contactService;
+        private readonly IStatisticService _statisticService;
 
-        public ContactsController(IContactService contactService)
+        public ContactsController(IContactService contactService, IStatisticService statisticService)
         {
             _contactService = contactService;
+            _statisticService = statisticService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllContacts()
@@ -26,7 +29,7 @@ namespace ContactService.API.Controllers
         public async Task<IActionResult> GetContactWithInformations(Guid id)
         {
             var result = await _contactService.GetContactWithInformationsAsync(id);
-            var response = ApiResponse<ContactWithInformationsResponseDto>.Ok(result,"İşlem Başarılı.");
+            var response = ApiResponse<ContactWithInformationsResponseDto>.Ok(result, "İşlem Başarılı.");
             return Ok(response);
         }
         [HttpGet("{contactId:Guid}")]
@@ -37,7 +40,7 @@ namespace ContactService.API.Controllers
             return Ok(response);
         }
         [HttpGet("by-company")]
-        public async Task<IActionResult> GetContactByCompanyName([FromQuery]string companyName)
+        public async Task<IActionResult> GetContactByCompanyName([FromQuery] string companyName)
         {
             var result = await _contactService.GetContactsByCompanyNameAsync(companyName);
             var response = ApiResponse<IEnumerable<ContactResponseDto>>.Ok(result, "İşlem Başarılı.");
@@ -61,7 +64,7 @@ namespace ContactService.API.Controllers
         public async Task<IActionResult> RemoveContact(Guid contactId)
         {
             await _contactService.RemoveContactAsync(contactId);
-            var response = ApiResponse<object>.Ok(null,$"{contactId} ID Silme işlemi başarılı.");
+            var response = ApiResponse<object>.Ok(null, $"{contactId} ID Silme işlemi başarılı.");
             return Ok(response);
         }
     }
