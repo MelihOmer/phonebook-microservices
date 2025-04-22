@@ -23,6 +23,8 @@ namespace ContactService.Infrastructure.Extensions
 
             services.AddScoped<IContactService, ContactService.Infrastructure.Services.ContactService>();
             services.AddScoped<IContactInformationService, ContactInformationService>();
+
+            services.AddScoped<IStatisticService,StatisticService>();
         }
     }
 }
