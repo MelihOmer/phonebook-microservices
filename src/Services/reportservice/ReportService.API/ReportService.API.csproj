@@ -20,10 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\PhonebookMicroservices.Shared\PhonebookMicroservices.Shared.csproj" />
     <ProjectReference Include="..\ReportService.Application\ReportService.Application.csproj" />
     <ProjectReference Include="..\ReportService.Infrastructure\ReportService.Infrastructure.csproj" />
   </ItemGroup>

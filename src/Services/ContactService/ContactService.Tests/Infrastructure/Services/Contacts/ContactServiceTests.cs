@@ -15,13 +15,11 @@ namespace ContactService.Tests.Application.Features.Contacts
     {
         private readonly Mock<IContactRepository> _mockRepository;
         private readonly Mock<IMapper> _mockMapper;
-        private readonly Mock<IDbContextAdapter> _appDbContext;
         private readonly FakeDbContext _dbContext;
         private readonly ContactService.Infrastructure.Services.ContactService _contactService;
         public ContactServiceTests()
         {
             _dbContext = new FakeDbContext(new());
-            _appDbContext = new Mock<IDbContextAdapter>();
             _mockRepository = new Mock<IContactRepository>();
             _mockMapper = new Mock<IMapper>();
             _contactService = new ContactService.Infrastructure.Services.ContactService(_mockRepository.Object, _dbContext, _mockMapper.Object);
