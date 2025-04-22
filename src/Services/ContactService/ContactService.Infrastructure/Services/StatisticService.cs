@@ -17,23 +17,19 @@ namespace ContactService.Infrastructure.Services
 
         public async Task<IEnumerable<LocationStatisticDto>> GetLocationStatisticAsync()
         {
-            var query = await _context.Contacts
-                .AsNoTracking()
-                .Where(c => c.ContactInformations.Any(ci => ci.Type == ContactInfoType.Location))
-                .Select(c => new
-                {
-                    ContactId = c.Id,
-                    Location = c.ContactInformations.FirstOrDefault(ci => ci.Type == ContactInfoType.Location)!.InfoContent
-                })
-                .GroupBy(x => x.Location)
-                .Select(g => new LocationStatisticDto
-                {
-                    Location = g.Key,
-                    PersonCount = g.Count(),
-                    PhoneCount = _context.ContactInformation
-                    .Count(ci => ci.Type == ContactInfoType.Phone && g.Select(x => x.ContactId).Contains(ci.ContactId))
-                })
-                .ToListAsync();
+            var query = await _context.ContactInformation
+        .AsNoTracking()
+        .Where(ci => ci.Type == ContactInfoType.Location)
+        .GroupBy(ci => ci.InfoContent)
+        .Select(g => new LocationStatisticDto
+        {
+            Location = g.Key,
+            PersonCount = g.Select(ci => ci.ContactId).Distinct().Count(),
+            PhoneCount = _context.ContactInformation
+                .Count(pi => pi.Type == ContactInfoType.Phone && g.Select(ci => ci.ContactId).Distinct().Contains(pi.ContactId))
+        })
+        .ToListAsync();
+
             return query;
         }
     }

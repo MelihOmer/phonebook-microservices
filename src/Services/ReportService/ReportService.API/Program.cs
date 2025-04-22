@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ReportService.API.Extensions;
+using ReportService.Application.Interfaces.Http;
 using ReportService.Infrastructure.Extensions;
+using ReportService.Infrastructure.Http;
 using ReportService.Infrastructure.Persistence;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
@@ -11,10 +14,16 @@ builder.Services.AddControllers()
     {
         opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
+builder.Services.AddHttpClient<IContactClient, ContactClient>(client =>
+{
+    client.BaseAddress = new Uri("http://contactservice");
+    //client.BaseAddress = new Uri("https://localhost:32770");
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddMasstransit();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

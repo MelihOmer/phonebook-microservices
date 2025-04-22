@@ -7,6 +7,6 @@ namespace ReportService.Domain.Entities
     {
         public DateTime RequestedAt { get; set; } = DateTime.UtcNow;
         public ReportStatus ReportStatus { get; set; } = ReportStatus.Preparing;
-        public IEnumerable<ReportDetail> ReportDetails { get; set; }
+        public ICollection<ReportDetail> ReportDetails { get; set; }
     }
 }
