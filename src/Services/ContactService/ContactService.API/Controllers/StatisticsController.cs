@@ -19,8 +19,8 @@ namespace ContactService.API.Controllers
         public async Task<IActionResult> GetLocationStatisticAsync()
         {
             var result = await _statisticService.GetLocationStatisticAsync();
-            var response = ApiResponse<IEnumerable<LocationStatisticDto>>.Ok(result);
-            return Ok(response);
+            //var response = ApiResponse<IEnumerable<LocationStatisticDto>>.Ok(result);
+            return Ok(result);
         }
     }
 }

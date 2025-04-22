@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ReportService.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using ReportService.Application.Interfaces.Repositories;
-using ReportService.Infrastructure.Repositories.ReportRepositories;
-using ReportService.Application.Mappings;
 using ReportService.Application.Interfaces.Services;
+using ReportService.Application.Mappings;
+using ReportService.Infrastructure.Persistence;
 using ReportService.Infrastructure.Repositories.ReportDetailsRepositories;
+using ReportService.Infrastructure.Repositories.ReportRepositories;
 using ReportService.Infrastructure.Services;
-using ReportService.Application.Interfaces.Http;
-using ReportService.Infrastructure.Http;
 
 namespace ReportService.Infrastructure.Extensions
 {

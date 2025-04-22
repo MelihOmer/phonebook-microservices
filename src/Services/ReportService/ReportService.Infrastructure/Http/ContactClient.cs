@@ -17,7 +17,7 @@ namespace ReportService.Infrastructure.Http
         {
             var response =
                 await _httpClient
-                .GetFromJsonAsync<IEnumerable<LocationStatisticDto>>("api/v1/contacts/location-statistic");
+                .GetFromJsonAsync<IEnumerable<LocationStatisticDto>>("api/v1/statistics/location-statistic");
             return response ?? Enumerable.Empty<LocationStatisticDto>();
         }
     }

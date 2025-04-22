@@ -8,5 +8,6 @@ namespace ReportService.Application.Interfaces.Services
         Task<ReportResponseDto> GetReportByIdAsync(Guid id);
         Task<ReportResponseDto> AddReportAsync();
         Task<ReportResponseDto> UpdateReportAsync(ReportUpdateDto reportUpdateDto);
+        Task PrepareReportAsync(Guid reportId);
     }
 }
