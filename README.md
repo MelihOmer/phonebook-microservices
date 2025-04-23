@@ -41,7 +41,7 @@ Her servis kendi veritabanına sahiptir ve **Docker Compose** ile konteyner orta
 - [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download)
 - [Docker](https://www.docker.com/)
 - [RabbitMQ Management UI](http://localhost:15672) (Kullanıcı: `guest`, Şifre: `guest`)
-- [PostgreSQL Client]
+- [PostgreSQL Client](opsiyonel)
 
 ---
 
