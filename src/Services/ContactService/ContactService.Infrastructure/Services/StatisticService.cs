@@ -18,17 +18,17 @@ namespace ContactService.Infrastructure.Services
         public async Task<IEnumerable<LocationStatisticDto>> GetLocationStatisticAsync()
         {
             var query = await _context.ContactInformation
-        .AsNoTracking()
-        .Where(ci => ci.Type == ContactInfoType.Location)
-        .GroupBy(ci => ci.InfoContent)
-        .Select(g => new LocationStatisticDto
-        {
-            Location = g.Key,
-            PersonCount = g.Select(ci => ci.ContactId).Distinct().Count(),
-            PhoneCount = _context.ContactInformation
-                .Count(pi => pi.Type == ContactInfoType.Phone && g.Select(ci => ci.ContactId).Distinct().Contains(pi.ContactId))
-        })
-        .ToListAsync();
+            .AsNoTracking()
+            .Where(ci => ci.Type == ContactInfoType.Location)
+            .GroupBy(ci => ci.InfoContent)
+            .Select(g => new LocationStatisticDto
+            {
+                Location = g.Key,
+                PersonCount = g.Select(ci => ci.ContactId).Distinct().Count(),
+                PhoneCount = _context.ContactInformation
+                    .Count(pi => pi.Type == ContactInfoType.Phone && g.Select(ci =>     ci.ContactId).Distinct().Contains(pi.ContactId))
+            })
+            .ToListAsync();
 
             return query;
         }
