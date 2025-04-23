@@ -1,0 +1,51 @@
+﻿version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"    
+      - "15672:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  postgres:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 123456
+        POSTGRES_DB: phonebook-contactDB
+
+
+
+  contactservice:
+    container_name: contactservice  
+    build:
+        context: .
+        dockerfile: ./src/Services/ContactService/ContactService.API/Dockerfile
+    ports:
+    - "5001:80"
+    depends_on:
+    - postgres
+    - rabbitmq
+    environment:
+    - ConnectionStrings__postgres=Host=postgres;Port=5432;Database=phonebook-contactDB;User Id=postgres;Password=123456;Timeout=15;
+    - ASPNETCORE_ENVIRONMENT=Development
+    
+  reportservice:
+    container_name: reportservice  
+    build:
+        context: .
+        dockerfile: ./src/Services/ReportService/ReportService.API/Dockerfile
+    ports:
+    - "5002:80"
+    depends_on:
+    - contactservice
+    environment:
+    - ConnectionStrings__postgres=Host=postgres;Port=5432;Database=phonebook-reportDB;User Id=postgres;Password=123456;Timeout=15;
+    - ASPNETCORE_ENVIRONMENT=Development

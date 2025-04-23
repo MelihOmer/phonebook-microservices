@@ -31,7 +31,8 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Company")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("company");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -39,7 +40,8 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("first_name");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -47,11 +49,41 @@ namespace ContactService.Infrastructure.Migrations
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("last_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("contacts", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b0e17976-0ee7-4662-8f75-9fb6ebd08a81"),
+                            Company = "Poseidon BT",
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 90, DateTimeKind.Utc).AddTicks(8559),
+                            Firstname = "Melih Ömer",
+                            IsDeleted = false,
+                            Lastname = "KAMAR"
+                        },
+                        new
+                        {
+                            Id = new Guid("ed584624-1260-493e-a206-3bb8b28f82a6"),
+                            Company = "Company X",
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 90, DateTimeKind.Utc).AddTicks(8563),
+                            Firstname = "Ali",
+                            IsDeleted = false,
+                            Lastname = "Veli"
+                        },
+                        new
+                        {
+                            Id = new Guid("321e8895-58c2-43ba-970b-0328d7177133"),
+                            Company = "Company deleted",
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 90, DateTimeKind.Utc).AddTicks(8566),
+                            Firstname = "Deleted",
+                            IsDeleted = true,
+                            Lastname = "Contact"
+                        });
                 });
 
             modelBuilder.Entity("ContactService.Domain.Entities.ContactInformation", b =>
@@ -61,44 +93,83 @@ namespace ContactService.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ContactId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ContanctId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("contact_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InfoContent")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<int>("Type")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContactId");
 
-                    b.HasIndex("ContanctId");
+                    b.ToTable("contact_informations", (string)null);
 
-                    b.ToTable("ContactInformation");
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2102795b-41dd-4d70-bb91-a321dac58656"),
+                            ContactId = new Guid("b0e17976-0ee7-4662-8f75-9fb6ebd08a81"),
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 91, DateTimeKind.Utc).AddTicks(8294),
+                            InfoContent = "0505 090 07 04",
+                            IsDeleted = false,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("46e06077-cd79-43f1-946b-9970b0e04557"),
+                            ContactId = new Guid("b0e17976-0ee7-4662-8f75-9fb6ebd08a81"),
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 91, DateTimeKind.Utc).AddTicks(8297),
+                            InfoContent = "İstanbul",
+                            IsDeleted = false,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("1ae461cd-0c34-4999-aa6d-5d8a8553454e"),
+                            ContactId = new Guid("b0e17976-0ee7-4662-8f75-9fb6ebd08a81"),
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 91, DateTimeKind.Utc).AddTicks(8300),
+                            InfoContent = "Mersin",
+                            IsDeleted = false,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = new Guid("efaba73d-fb91-4120-9863-dc693b1e61d1"),
+                            ContactId = new Guid("ed584624-1260-493e-a206-3bb8b28f82a6"),
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 91, DateTimeKind.Utc).AddTicks(8303),
+                            InfoContent = "0505 505 05 05",
+                            IsDeleted = false,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("2b97ff98-39c3-4cc3-a2ee-8fc5a596b818"),
+                            ContactId = new Guid("ed584624-1260-493e-a206-3bb8b28f82a6"),
+                            CreatedAt = new DateTime(2025, 4, 23, 15, 32, 17, 91, DateTimeKind.Utc).AddTicks(8306),
+                            InfoContent = "İstanbul",
+                            IsDeleted = false,
+                            Type = 3
+                        });
                 });
 
             modelBuilder.Entity("ContactService.Domain.Entities.ContactInformation", b =>
                 {
                     b.HasOne("ContactService.Domain.Entities.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ContactService.Domain.Entities.Contact", null)
                         .WithMany("ContactInformations")
-                        .HasForeignKey("ContanctId")
+                        .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

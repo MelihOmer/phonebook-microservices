@@ -1,4 +1,4 @@
-﻿namespace ContactService.Domain.DTOs.Contact
+﻿namespace ContactService.Application.DTOs.Contact
 {
     public record ContactResponseDto
     {
@@ -6,9 +6,9 @@
         public string Firstname { get; init; }
         public string Lastname { get; init; }
         public string Company { get; init; }
-        public ContactResponseDto(Guid ıd, string firstname, string lastname, string company)
+        public ContactResponseDto(Guid id, string firstname, string lastname, string company)
         {
-            Id = ıd;
+            Id = id;
             Firstname = firstname;
             Lastname = lastname;
             Company = company;

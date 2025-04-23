@@ -4,7 +4,7 @@ using ContactService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ContactService.Infrastructure.Repository
+namespace ContactService.Infrastructure.Repositories
 {
     public class EfGenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
@@ -44,6 +44,12 @@ namespace ContactService.Infrastructure.Repository
         public async Task<T> GetByIdAsync(Guid id)
         {
             var result = await _table.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return result;
+        }
+
+        public IQueryable<T> GetQueryable()
+        {
+            var result = _table.AsQueryable();
             return result;
         }
 

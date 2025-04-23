@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ContactService.Domain.DTOs.Contact;
+using ContactService.Application.DTOs.Contact;
 using ContactService.Domain.Entities;
 
 namespace ContactService.Application.Mappings
@@ -9,6 +9,7 @@ namespace ContactService.Application.Mappings
         public ContactMappingProfile()
         {
             CreateMap<Contact,ContactCreateDto>().ReverseMap();
+            CreateMap<Contact,ContactUpdateDto>().ReverseMap();
             CreateMap<Contact,ContactResponseDto>().ReverseMap();
         }
     }

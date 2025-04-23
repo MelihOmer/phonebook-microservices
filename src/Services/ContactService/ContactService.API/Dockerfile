@@ -12,6 +12,10 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Services/ContactService/ContactService.API/ContactService.API.csproj", "src/Services/ContactService/ContactService.API/"]
+COPY ["src/Services/Shared/PhonebookMicroservices.Shared/PhonebookMicroservices.Shared.csproj", "src/Services/Shared/PhonebookMicroservices.Shared/"]
+COPY ["src/Services/ContactService/ContactService.Application/ContactService.Application.csproj", "src/Services/ContactService/ContactService.Application/"]
+COPY ["src/Services/ContactService/ContactService.Domain/ContactService.Domain.csproj", "src/Services/ContactService/ContactService.Domain/"]
+COPY ["src/Services/ContactService/ContactService.Infrastructure/ContactService.Infrastructure.csproj", "src/Services/ContactService/ContactService.Infrastructure/"]
 RUN dotnet restore "./src/Services/ContactService/ContactService.API/ContactService.API.csproj"
 COPY . .
 WORKDIR "/src/src/Services/ContactService/ContactService.API"
