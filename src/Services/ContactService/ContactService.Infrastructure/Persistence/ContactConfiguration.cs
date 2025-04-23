@@ -19,6 +19,33 @@ namespace ContactService.Infrastructure.Persistence
                 .WithOne()
                 .HasForeignKey(x => x.ContactId)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasData(new Contact()
+            {
+                Id = Guid.Parse("b0e17976-0ee7-4662-8f75-9fb6ebd08a81"),
+                Firstname = "Melih Ömer",
+                Lastname = "KAMAR",
+                Company = "Poseidon BT",
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
+            },
+            new Contact()
+            {
+                Id = Guid.Parse("ed584624-1260-493e-a206-3bb8b28f82a6"),
+                Firstname = "Ali",
+                Lastname = "Veli",
+                Company = "Company X",
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
+            },
+            new Contact()
+            {
+                Id = Guid.Parse("321e8895-58c2-43ba-970b-0328d7177133"),
+                Firstname = "Deleted",
+                Lastname = "Contact",
+                Company = "Company deleted",
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = true
+            });
         }
     }
 }
