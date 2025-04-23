@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService.Infrastructur
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A2DF8DCE-7C0E-4262-9BC2-B3EBFCB86F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService.Tests", "ReportService.Tests\ReportService.Tests.csproj", "{F9BDF037-70EC-400B-AE6D-C909FB6FF75E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService.Tests", "src\services\reportservice\ReportService.Tests\ReportService.Tests.csproj", "{F9BDF037-70EC-400B-AE6D-C909FB6FF75E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

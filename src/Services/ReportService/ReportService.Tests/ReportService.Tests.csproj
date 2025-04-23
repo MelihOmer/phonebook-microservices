@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\services\reportservice\ReportService.Application\ReportService.Application.csproj" />
-    <ProjectReference Include="..\src\services\reportservice\ReportService.Infrastructure\ReportService.Infrastructure.csproj" />
+    <ProjectReference Include="..\ReportService.Application\ReportService.Application.csproj" />
+    <ProjectReference Include="..\ReportService.Infrastructure\ReportService.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
