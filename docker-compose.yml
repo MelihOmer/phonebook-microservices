@@ -29,7 +29,7 @@ services:
         context: .
         dockerfile: ./src/Services/ContactService/ContactService.API/Dockerfile
     ports:
-    - "5000:80"
+    - "5001:80"
     depends_on:
     - postgres
     - rabbitmq
@@ -43,7 +43,7 @@ services:
         context: .
         dockerfile: ./src/Services/ReportService/ReportService.API/Dockerfile
     ports:
-    - "5001:80"
+    - "5002:80"
     depends_on:
     - contactservice
     environment:
